@@ -24,7 +24,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_sig_date"
+                    android:id="@+id/tv_eve_date"
                     android:layout_width="80sp"
                     android:layout_height="80sp"
                     android:layout_margin="10sp"
@@ -36,7 +36,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_sig_month"
+                    android:id="@+id/tv_eve_month"
                     android:layout_width="80sp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10sp"
@@ -55,7 +55,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_sig_topic"
+                    android:id="@+id/tv_eve_topic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"
@@ -63,29 +63,16 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_sig_from"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:text="From : " />
-
-                <TextView
-                    android:id="@+id/tv_sig_to"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:text="To : " />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:id="@+id/tv_sig_reminder"
+                    android:id="@+id/tv_eve_reminder"
                     android:layout_gravity="end"
                     android:paddingRight="20sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20sp"
+                    android:layout_marginTop="50sp"
                     android:textColor="@color/colorAccent"
                     android:text="Set Reminder"/>
 

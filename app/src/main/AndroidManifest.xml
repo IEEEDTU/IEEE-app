@@ -23,17 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:label="Login"/>
         <activity android:name=".NotApprovedActivity" />
         <activity
-            android:name=".SIGDetailActivity"
-            android:label="@string/title_activity_sigdetail"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventDetailActivity" />
-
-        <activity android:name=".CouncilMemberActivity"
+            android:name=".CouncilMemberActivity"
             android:label="Council"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DetailsActivity"
+            android:label="SIG"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
