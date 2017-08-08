@@ -26,6 +26,12 @@ public class Person {
     }
 
 
+    public long getMobile() {
+        return mobile;
+    }
 
+    public void setMobile(long mobile) {
+        this.mobile = mobile;
+    }
 }
 
