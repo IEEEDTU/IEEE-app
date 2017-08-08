@@ -3,6 +3,7 @@ package app.com.ieeedtu;
 import java.util.List;
 
 import app.com.ieeedtu.POJO.CouncilMember;
+import app.com.ieeedtu.POJO.EventInfo;
 import app.com.ieeedtu.POJO.NewsInfo;
 import app.com.ieeedtu.POJO.SigInfo;
 import retrofit2.Call;
@@ -22,4 +23,7 @@ public interface DataInterface {
 
     @GET("/council/")
     Call<List<CouncilMember>> getCouncil();
+
+    @GET("/events/")
+    Call<List<EventInfo>> getEvents();
 }

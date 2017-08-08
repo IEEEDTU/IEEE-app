@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -150,7 +149,7 @@ public class SIGFragment extends Fragment {
         public class SigsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             TextView tvDate, tvMonth, tvTopic, tvFrom, tvTo;
-            Button btRemind;
+            TextView btRemind;
 
             public SigsHolder(View itemView) {
                 super(itemView);
@@ -159,8 +158,12 @@ public class SIGFragment extends Fragment {
                 tvTopic = (TextView) itemView.findViewById(R.id.tv_sig_topic);
                 tvFrom = (TextView) itemView.findViewById(R.id.tv_sig_from);
                 tvTo = (TextView) itemView.findViewById(R.id.tv_sig_to);
-                btRemind = (Button) itemView.findViewById(R.id.bt_sig_reminder);
+                btRemind = (TextView) itemView.findViewById(R.id.tv_sig_reminder);
                 btRemind.setOnClickListener(this);
+
+                tvTopic.setOnClickListener(this);
+                tvDate.setOnClickListener(this);
+                tvMonth.setOnClickListener(this);
 
             }
 
@@ -180,6 +183,18 @@ public class SIGFragment extends Fragment {
                             .setData(CalendarContract.Events.CONTENT_URI)
                             .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin.getTimeInMillis()).putExtra(CalendarContract.Events.TITLE,list.get(pos).getTopic())
                             .putExtra(CalendarContract.Events.DESCRIPTION,list.get(pos).getDescription()).putExtra(CalendarContract.Events.EVENT_LOCATION, list.get(pos).getLocation());
+                    getActivity().startActivity(intent);
+
+                }
+
+                else if(view==tvTopic||view==tvDate||view==tvDate){
+                    int pos = getAdapterPosition();
+                    Intent intent = new Intent(getActivity(),DetailsActivity.class);
+                    intent.putExtra("Topic",list.get(pos).getTopic()).putExtra("Date",date).putExtra("Month",month).putExtra("Time",list.get(pos).getFromTime())
+                            .putExtra("Loc",list.get(pos).getLocation()).putExtra("Desc",list.get(pos).getDescription())
+                    .putExtra("CoordiName",list.get(pos).getCoordinators().get(0).getUser().getFirstName()+" "+list.get(pos).getCoordinators().get(0).getUser().getLastName())
+                    .putExtra("CoordiCon",Long.toString(list.get(pos).getCoordinators().get(0).getMobile()));
+
                     getActivity().startActivity(intent);
 
                 }
