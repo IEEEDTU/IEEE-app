@@ -3,6 +3,7 @@ package app.com.ieeedtu;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import app.com.ieeedtu.POJO.NewsInfo;
@@ -32,6 +32,7 @@ public class NewsFragment extends Fragment {
     RecyclerView rvNews;
     ProgressBar pbNews;
 
+    TextView tvNo;
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -44,30 +45,36 @@ public class NewsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_news, container, false);
         pbNews = (ProgressBar) v.findViewById(R.id.pb_news);
         rvNews = (RecyclerView) v.findViewById(R.id.rv_news);
+        tvNo = (TextView) v.findViewById(R.id.tv_no_news);
         pbNews.setVisibility(View.VISIBLE);
 
         Call<List<NewsInfo>> newsCall = RetroClass.client.getNews();
         newsCall.enqueue(new Callback<List<NewsInfo>>() {
             @Override
             public void onResponse(Call<List<NewsInfo>> call, Response<List<NewsInfo>> response) {
-                NewsAdapter adapter = new NewsAdapter(response.body());
-                Log.i("Resp","True");
+
                 pbNews.setVisibility(View.GONE);
-                rvNews.setAdapter(adapter);
-                RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
-                rvNews.setLayoutManager(manager);
-                rvNews.setHasFixedSize(true);
+                if (response.body() != null && !response.body().isEmpty()) {
+                    NewsAdapter adapter = new NewsAdapter(response.body());
+                    Log.i("Resp", "True");
+                    rvNews.setAdapter(adapter);
+                    RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
+                    rvNews.setLayoutManager(manager);
+                    rvNews.setHasFixedSize(true);
+                }
+
+                else {
+                    tvNo.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFailure(Call<List<NewsInfo>> call, Throwable t) {
-                Log.i("Resp","False"+t.toString());
+                Log.i("Resp", "False" + t.toString());
                 pbNews.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "Network error", Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
         return v;
@@ -90,7 +97,7 @@ public class NewsFragment extends Fragment {
         public void onBindViewHolder(NewsHolder holder, int position) {
             holder.tvHeading.setText(list.get(position).getHeading());
 
-            String date = list.get(position).getPublishedOn().substring(0,10);
+            String date = list.get(position).getPublishedOn().substring(0, 10);
             holder.tvDate.setText(date);
             holder.tvBody.setText(list.get(position).getBody());
 

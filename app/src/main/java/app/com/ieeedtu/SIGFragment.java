@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class SIGFragment extends Fragment {
     ProgressBar pbSig;
     String year, month, date;
 
+    TextView tvNo;
     public SIGFragment() {
         // Required empty public constructor
     }
@@ -46,17 +48,24 @@ public class SIGFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_sig, container, false);
         rvSigs = (RecyclerView) v.findViewById(R.id.rv_sig);
         pbSig = (ProgressBar) v.findViewById(R.id.pb_sig);
+        tvNo = (TextView) v.findViewById(R.id.tv_no_sig);
         pbSig.setVisibility(View.VISIBLE);
         Call<List<SigInfo>> sigCall = RetroClass.client.getSigs();
         sigCall.enqueue(new Callback<List<SigInfo>>() {
             @Override
             public void onResponse(Call<List<SigInfo>> call, Response<List<SigInfo>> response) {
+
+                pbSig.setVisibility(View.GONE);
+                if(response.body()!=null&&!response.body().isEmpty()){
                 SigsAdapter adapter = new SigsAdapter(response.body());
                 rvSigs.setAdapter(adapter);
-                pbSig.setVisibility(View.GONE);
                 RecyclerView.LayoutManager man = new LinearLayoutManager(getActivity());
                 rvSigs.setLayoutManager(man);
-                rvSigs.setHasFixedSize(true);
+                rvSigs.setHasFixedSize(true);}
+
+                else {
+                    tvNo.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
